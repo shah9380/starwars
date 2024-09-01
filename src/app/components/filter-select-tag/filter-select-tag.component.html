@@ -1,0 +1,21 @@
+<div class="dropdown w-full">
+    <!-- Dropdown Button -->
+    <button
+      class="flex justify-between items-center px-4 py-2 rounded w-full"
+      [ngClass]="{'bg-gray-200 text-[#03295C]': !(this.dropService.getIsOpen() && this.dropDownName === this.dropService.getActiveDropdown()), 'bg-[#03295C] text-white': (this.dropService.getIsOpen() && this.dropDownName === this.dropService.getActiveDropdown())}"
+      (click)="toggleDropdown($event)"
+    >
+      <span class="grow text-lg font-bold">{{dropDownName}}</span>
+      <span [ngClass]="{'rotate-180': this.dropService.getIsOpen() && this.dropDownName === this.dropService.getActiveDropdown()}">▼</span>
+    </button>
+  
+    <!-- Dropdown Menu -->
+    <div *ngIf="this.dropService.getIsOpen() && this.dropDownName === this.dropService.getActiveDropdown()" class="dropdown-menu bg-white shadow-md rounded mt-2 w-full">
+        @for(option of dropDownData; track option){
+            <div class="option px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center">
+                <input type="checkbox" (change)="optionChange($event, option)" [checked]="option.checked" class="form-checkbox h-4 w-4 text-green-500 rounded-sm mr-2" />
+                {{option.name}}
+            </div>
+        }
+    </div>
+</div>

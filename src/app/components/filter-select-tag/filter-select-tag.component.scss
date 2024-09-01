@@ -1,0 +1,29 @@
+.dropdown {
+    position: relative;
+    width: 200px;
+  
+    &-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+  
+    &-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+  
+    .option {
+      display: flex;
+      align-items: center;
+  
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+  
