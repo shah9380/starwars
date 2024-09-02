@@ -16,6 +16,6 @@ export class FilterBlockComponent implements OnInit {
   }
 
   search(){
-    this.filterblockservice.setFilterList();
+    this.filterblockservice.getFilterData();
   }
 }

@@ -1,7 +1,7 @@
 <section class="bg-white p-6 w-fit flex flex-col justify-center items-center">
     <h3 class="text-xl font-semibold text-center text-[#03295C]">FILTERS</h3>
     <div class="flex flex-col gap-4 justify-center items-center my-4">
-        <app-filter-select-tag *ngFor="let item of filterblockservice.getFilterList()" [dropDownData]="item.listData" [dropDownName]="item.name"></app-filter-select-tag>
+        <app-filter-select-tag *ngFor="let item of filterblockservice.getFilterList()" [field]="item.field" [dropDownData]="item.listData" [dropDownName]="item.name"></app-filter-select-tag>
     </div>
     <button (click)="search()">Search</button>
 
