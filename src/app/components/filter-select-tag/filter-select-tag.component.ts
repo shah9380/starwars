@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { FilterdropdownService } from '../../controller/option-filter/filterdropdown.service';
 import { FilterBlockService } from '../../controller/filter-block/filter-block.service';
 import { HttpClient } from '@angular/common/http';
@@ -153,6 +153,14 @@ export class FilterSelectTagComponent implements OnInit {
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
       // Reached the bottom
       this.fetchData();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown')) {
+      this.dropService.setIsOpen(false) // Close dropdown when clicked outside
     }
   }
 
