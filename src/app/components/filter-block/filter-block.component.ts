@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit} from '@angular/core';
 import { FilterBlockService } from '../../controller/filter-block/filter-block.service';
 import { FilterOption } from '../../models/filter-option';
 
@@ -12,10 +12,10 @@ export class FilterBlockComponent implements OnInit {
   constructor(public filterblockservice: FilterBlockService){}
 
   ngOnInit(): void {
-      
+    
   }
 
   search(){
-    this.filterblockservice.getFilterData();
+    console.log(this.filterblockservice.getFilterData());
   }
 }

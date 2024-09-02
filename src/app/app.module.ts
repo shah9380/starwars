@@ -9,6 +9,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { FilterBlockComponent } from './components/filter-block/filter-block.component';
 import { FilterSelectTagComponent } from './components/filter-select-tag/filter-select-tag.component';
 import { provideHttpClient } from '@angular/common/http';
+import { CharacterTableComponent } from './components/character-table/character-table.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -17,13 +19,14 @@ import { provideHttpClient } from '@angular/common/http';
     HomeComponent,
     ProfileComponent,
     FilterBlockComponent,
-    FilterSelectTagComponent
+    FilterSelectTagComponent,
+    CharacterTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [provideHttpClient(),],
+  providers: [provideHttpClient(), provideAnimationsAsync('noop'),],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

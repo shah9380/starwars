@@ -1,3 +1,10 @@
-<main>
-    <app-filter-block></app-filter-block>
+<main class="w-[100%] border-2 border-black block !pt-12">
+    <section class="flex justify-center flex-col md:flex-row gap-8 max-w-[1200px] !mx-auto">
+        <app-filter-block></app-filter-block>
+        <div class="bg-white !p-8 grow">
+            <h4 class="text-xl uppercase font-medium text-[#03295C]">Search Results</h4>
+            <p class="text-sm italic font-semibold text-gray-600">(By default this table have all data)</p>
+            <app-character-table></app-character-table>
+        </div>
+    </section>
 </main>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter, Observable } from 'rxjs';
+import { filter, Observable, retry } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FilterOption } from '../../models/filter-option';
 
@@ -9,6 +9,10 @@ import { FilterOption } from '../../models/filter-option';
 export class FilterBlockService {
 
   private apiUrl = 'https://swapi.dev/api'
+
+  public promise: any;
+
+  private loader = true;
 
   list : any[] = [
     {
@@ -51,12 +55,23 @@ export class FilterBlockService {
   constructor(private http: HttpClient) { 
   }
 
+  getLoader(){
+    return this.loader;
+  }
+
+  setLoader(state: boolean){
+    this.loader = state;
+  }
   getFullData(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
 
   getFilterList(){
     return this.list;
+  }
+
+  setList(list: any){
+    this.list = list;
   }
 
   setFilterList(field: string, newlist: any){
@@ -68,7 +83,7 @@ export class FilterBlockService {
   }
 
   setFilterListClear(field: string, newlist: any){
-    debugger;
+    ;
     let index = this.list.findIndex((item)=> item.field === field);
     // this.list = this.list.map(data => {
     //   if(data.field === field){
@@ -93,7 +108,7 @@ export class FilterBlockService {
   }
 
   setFilterListOptions(name: string, option: any){
-    debugger;
+    ;
      let alteringIndex = this.list.findIndex((item: any) => item.name === name)
      if(name === 'Movie Name'){
       var removingIndex = this.list[alteringIndex].listData.findIndex((item: any) => item.title === option.title);
@@ -108,13 +123,11 @@ export class FilterBlockService {
 
 
   getFilterData(){
-    debugger;
+    ;
     let filteredData = this.list.map(item => {
       let listData = item.listData.filter((data: any)=> data.checked === true);
       return {...item, listData}
     })
-    console.log(filteredData);
-    console.log(this.list[this.list.length -1]);
 
     let filteringConditions: any = {}
 
@@ -125,23 +138,19 @@ export class FilterBlockService {
         })] }
     })
 
+    // this.list[this.list.length -1].listData.filter(((item: any) => item.birth_year !== "All"))
 
-    console.log(filteringConditions);
-
-    this.list[this.list.length -1].listData = this.list[this.list.length -1].listData.filter(((item: any) => item.birth_year !== "All"))
-    console.log(this.list[this.list.length -1].listData);
-
-      const fullData = this.list[this.list.length -1].listData;
+      const fullData = this.list[this.list.length -1].listData.filter(((item: any) => item.birth_year !== "All"));
 
       let foundingData : any= [];
       let filterinfData : any= fullData;
-      for(let key in filteringConditions){
+    for(let key in filteringConditions){
       // let temp = this.list[this.list.length -1].listData;
       
       let fribData : any= [];
       for (const item of filteringConditions[key]) {
         let fredData: any = [];
-        if (item?.url === undefined) {
+        if (item?.url === undefined && item?.birth_year === undefined) {
           fribData = [...filterinfData.map((obj: any) => obj)];
             break; // This will exit the loop
         }
@@ -155,7 +164,7 @@ export class FilterBlockService {
         if (item?.birth_year && item?.birth_year !== "All") {
           fredData = [...fredData,
                 ...filterinfData.filter((obj: any) =>
-                    obj.birth_year.includes(item?.birth_year)
+                    obj.birth_year === (item?.birth_year)
                 ),
             ];
         }
@@ -163,30 +172,10 @@ export class FilterBlockService {
      }
 
       filterinfData = this.removeDuplicates(fribData, "url")
-      console.log(this.removeDuplicates(filterinfData, "url"), key);
       foundingData = [...foundingData, ...filterinfData]
     }
 
-    // this.removeDuplicates(foundingData, )
-
-  //   for(let key in filteringConditions){
-  //     // let temp = this.list[this.list.length -1].listData;
-  //     let filterData = [];
-  //     filteringConditions[key].forEach((item: any) => {
-  //       if(item?.url){
-  //         foundData = [...foundData, ...this.list[this.list.length -1].listData.filter((obj: any) => {
-  //           if(obj.birth_year !== "All") return obj[key].some((it: any) => it.includes(item?.url))
-  //         })];
-  //       }
-  //     })
-  //   }
-
-  //  console.log(this.removeDuplicates(foundData, "url"))
-  //  filteringConditions.birth_year.
-  //  this.removeDuplicates(foundData, "url").filter((item: any) =>  item.birth_year )
-  //   const data = this.filterDataByConditions(this.list[this.list.length -1].listData, filteringConditions);
-  //   console.log(data);
-    // console.log(this.filterByConditions(this.list[this.list.length -1].listData, filteredData)) 
+    return filterinfData;
   }
 
   removeDuplicates(arr: any, key: any) {
