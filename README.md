@@ -113,5 +113,3 @@ ng e2e
 To get more help on the Angular CLI, use `ng help` or check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ---
-
-This updated README provides a clear guide to setting up and running your Angular project, including the integration of Tailwind CSS for styling.
