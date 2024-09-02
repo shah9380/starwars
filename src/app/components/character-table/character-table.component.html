@@ -8,7 +8,15 @@
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Birth Year</th>
         </tr>
       </thead>
-      <tbody class="bg-[#E6E6E6] divide-y divide-gray-[#EAEFEF]">
+      <tbody *ngIf="blockService.getLoader()" class="divide-y divide-gray-[#EAEFEF]">
+        <tr tabindex="0" *ngFor="let character of dummyArray">
+          <td class="px-1"><div class="skeleton-box"></div></td>
+          <td class="px-1"><div class="skeleton-box"></div></td>
+          <td class="px-1"><div class="skeleton-box"></div></td>
+          <td class="px-1"><div class="skeleton-box"></div></td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!blockService.getLoader()" class="bg-[#E6E6E6] divide-y divide-gray-[#EAEFEF]">
         <tr tabindex="0" *ngFor="let character of paginatedCharacters;index as i" (click)="characterProfile(character)" class="cursor-pointer active:bg-sky-300/10 hover:bg-sky-300/10">
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ (currentPage*5)-5+i+1 }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ character.name }}</td>

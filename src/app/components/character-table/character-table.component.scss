@@ -3,3 +3,24 @@ table, th, td {
     border-collapse: collapse;
   }
   
+  .skeleton-box {
+    height: 30px; /* Adjust height as needed */
+    width: 100%; /* Make it full width of the table cell */
+    background-color: #e0e0e0; /* Light grey color for the skeleton */
+    border-radius: 4px; /* Slightly round the edges */
+    animation: pulse 1.5s infinite ease-in-out;
+    margin: 4px 0; /* Add some margin for better spacing */
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4; /* Reduced opacity for a more visible pulsing effect */
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

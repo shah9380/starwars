@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterBlockService } from '../../controller/filter-block/filter-block.service';
+import { Router } from '@angular/router';
+import { ProfileService } from '../../controller/profile/profile.service';
 
 @Component({
   selector: 'app-character-table',
@@ -8,7 +10,8 @@ import { FilterBlockService } from '../../controller/filter-block/filter-block.s
 })
 export class CharacterTableComponent implements OnInit {
 
-  constructor(public blockService: FilterBlockService){}
+  constructor(public blockService: FilterBlockService, private router: Router, private profileCtrl: ProfileService){}
+  dummyArray: number[] = new Array(5).fill(0);
   ngOnInit(): void {
       this.blockService.getFilterData();
   }
@@ -39,5 +42,11 @@ export class CharacterTableComponent implements OnInit {
 
   characterProfile(character: any){
     console.log(character);
+    const url = character.url;
+    const parts = url.split('/');
+    const number = parts[parts.length - 2]; // This will give you "1"
+    console.log(number); // Output: 1
+    this.profileCtrl.setCurrentCharacter(character);
+    this.router.navigate([`profile/${number}`])
   }
 }
