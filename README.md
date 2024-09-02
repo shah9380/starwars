@@ -13,7 +13,7 @@ Before running the development server, you need to install the project dependenc
 1. **Clone the repository**:
 
    ```bash
-   git clone [repository-url](https://github.com/shah9380/starwars.git)
+   git clone https://github.com/shah9380/starwars.git
    cd starwars
    ```
 
